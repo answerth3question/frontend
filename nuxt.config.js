@@ -51,6 +51,7 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
   /*
   ** Axios module configuration
@@ -77,5 +78,18 @@ module.exports = {
     extend(config, ctx) {
       
     }
+  },
+  env: {
+
+  },
+  auth: {
+    strategies: {
+      google: {
+        client_id: process.env.GOOGLE_CLIENT_ID
+      }
+    }
+  },
+  router: {
+    middleware: ['auth']
   }
 }
