@@ -9,18 +9,19 @@
       sm8
       md6
     >
-      Home {{jake}}
-      <v-btn @click="$auth.loginWith('google')">Log in</v-btn>
+      This is the home page
+      <v-btn @click="onLogout">Logout</v-btn>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 export default {
-  computed: {
-    jake() {
-      return process.env.HELLO
+  methods: {
+    async onLogout() {
+      await this.$auth.logout();
     }
-  }
+  },
 }
 </script>
+
