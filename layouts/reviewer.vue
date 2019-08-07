@@ -4,7 +4,7 @@
      <v-container>
        <v-layout>
          <v-flex>
-           This is the user layout
+           This is the reviewer layout
          </v-flex>
        </v-layout>
        <nuxt />

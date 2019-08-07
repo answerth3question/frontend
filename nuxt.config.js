@@ -84,12 +84,13 @@ module.exports = {
   },
   auth: {
     strategies: {
+      local: false,
       google: {
         client_id: process.env.GOOGLE_CLIENT_ID,
       }
     },
+    redirect: {
+      callback: '/callback'
+    }
   },
-  router: {
-    middleware: ['auth']
-  }
 }

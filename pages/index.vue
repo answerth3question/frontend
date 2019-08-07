@@ -11,6 +11,7 @@
     >
       This is the home page
       <v-btn @click="onLogout">Logout</v-btn>
+      <nuxt-link to="/some-other-page">Some other page</nuxt-link>
     </v-flex>
   </v-layout>
 </template>
@@ -20,6 +21,7 @@ export default {
   methods: {
     async onLogout() {
       await this.$auth.logout();
+      this.$router.push('/login');
     }
   },
 }
