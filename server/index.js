@@ -1,11 +1,20 @@
 const express = require('express')
 const consola = require('consola')
-const { Nuxt, Builder } = require('nuxt')
+const bodyParser = require('body-parser');
+const { Nuxt, Builder } = require('nuxt');
+const oauth2Routes = require('./oauth2');
+
 const app = express()
 
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
 }
+
+app.use(bodyParser.json({ type: 'application/*+json' }));
+app.use(bodyParser.urlencoded({ extended: false }));
+
+
+app.use('/auth/code-exchange', oauth2Routes);
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')

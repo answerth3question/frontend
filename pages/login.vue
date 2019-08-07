@@ -12,6 +12,7 @@ export default {
   methods: {
     async googleLogin() {
       await this.$auth.loginWith('google');
+      console.log('done with login')
     }
   },
 }

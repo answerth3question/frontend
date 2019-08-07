@@ -58,8 +58,11 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    proxy: true,
   },
-
+  proxy: {
+    '/api': 'http://localhost:5000/',
+  },
   /*
   ** Build configuration
   */
@@ -87,10 +90,14 @@ module.exports = {
       local: false,
       google: {
         client_id: process.env.GOOGLE_CLIENT_ID,
+        response_type: 'code',
+        access_token_endpoint: '/auth/code-exchange/google', // send POST to the express server
+        access_type: 'offline',
+        token_key: 'id_token',
       }
     },
     redirect: {
-      callback: '/callback'
+      callback: '/callback',
     }
   },
 }
