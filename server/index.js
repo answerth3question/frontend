@@ -14,7 +14,7 @@ app.use(bodyParser.json({ type: 'application/*+json' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-app.use('/auth/code-exchange', oauth2Routes);
+app.use('/auth', oauth2Routes);
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')

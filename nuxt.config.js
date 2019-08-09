@@ -51,7 +51,7 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
+    // '@nuxtjs/auth',
   ],
   /*
   ** Axios module configuration
@@ -83,21 +83,21 @@ module.exports = {
     }
   },
   env: {
-
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   },
-  auth: {
-    strategies: {
-      local: false,
-      google: {
-        client_id: process.env.GOOGLE_CLIENT_ID,
-        response_type: 'code',
-        access_token_endpoint: '/auth/code-exchange/google', // send POST to the express server
-        access_type: 'offline',
-        token_key: 'id_token',
-      }
-    },
-    redirect: {
-      callback: '/callback',
-    }
-  },
+  // auth: {
+  //   plugins: ['~/plugins/auth'],
+  //   strategies: {
+  //     google: {
+  //       client_id: process.env.GOOGLE_CLIENT_ID,
+  //       // response_type: 'code',
+  //       // access_token_endpoint: '/auth/code-exchange/google', // send POST to the express server
+  //       // access_type: 'offline',
+  //       // token_key: 'id_token',
+  //     }
+  //   },
+  //   redirect: {
+  //     callback: '/callback',
+  //   }
+  // },
 }

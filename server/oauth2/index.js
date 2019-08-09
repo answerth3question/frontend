@@ -1,9 +1,10 @@
 const router = require('express').Router();
-const axios = require('axios');
+const axios = require('axios')
+const jwt = require('jsonwebtoken')
 
 const GOOGLE_DISCOVERY_DOCUMENT = 'https://accounts.google.com/.well-known/openid-configuration';
 
-const spitData = axiosRequest => axiosRequest.then(res => res.data).catch(err => err);
+const spitData = axiosPromise => axiosPromise.then(res => res.data);
 
 router.post('/google', async (req, res) => {
   try {
@@ -16,11 +17,12 @@ router.post('/google', async (req, res) => {
       grant_type: 'authorization_code',
     };
     const googleUser = await spitData(axios.post(discoveryDocument.token_endpoint, payload));
-    // console.log(googleUser)
-    res.send(googleUser);
+    const decodedGoogleUser= jwt.decode(googleUser.id_token); // should ultimately use jwt.verify
+    const myFlaskAppResponse = await spitData(axios.post(process.env.FLASK_API + '/auth/login?oauth2=true&strategy=google', decodedGoogleUser))
+    res.send(myFlaskAppResponse);
   } catch (error) {
     console.error(error.message);
-    res.send(error.message)
+    res.send(error.message);
   }
 });
 
