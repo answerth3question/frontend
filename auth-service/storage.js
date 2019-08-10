@@ -18,13 +18,16 @@ export default class Storage {
   // Universal
   getUniversal(key) {
     let value = this.getState(key);
-    if (isUnset(value)) {
+    if (!value) {
+      console.log('GOING TO GET COOKIE')
       value = this.getCookie(key)
     }
+    console.log('2 getUniversal', value, process.client)
 
     if (isUnset(value)) {
       value = this.getLocalStorage(key);
     }
+    console.log('3 getUniversal', value, process.client)
 
     return value;
   }
@@ -130,11 +133,14 @@ export default class Storage {
       return;
     }
     const _key = this.prefix.cookie + key;
+    console.log('GET_COOKIE _key', _key)
     const cookies = this.getCookies();
+    console.log('GET_COOKIE cookies', cookies)
     const value = cookies[_key] ? decodeURIComponent(cookies[_key]) : undefined;
-    if (typeof value === 'string') {
-      return JSON.parse(value);
-    }
+    console.log('GET_COOKIE value', value)
+    // if (typeof value === 'string') {
+    //   return value;
+    // }
     return value;
   }
   removeCookie(key) {

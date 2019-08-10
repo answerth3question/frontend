@@ -5,12 +5,3 @@
     </v-flex>
   </v-layout>
 </template>
-
-<script>
-// import { googleAuth } from '../middleware/auth/google'
-export default {
-  methods: {
-
-  },
-}
-</script>

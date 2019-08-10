@@ -12,6 +12,7 @@
 <script>
 import ThePublicToolbar from '@/components/the-public-toolbar'
 export default {
+  middleware: 'auth',
   components: {
     ThePublicToolbar
   }

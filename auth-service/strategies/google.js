@@ -20,24 +20,10 @@ export default class GoogleOAuth2Service  {
       `state=${state}&` +
       `nonce=${nanoid()}`;
     
-    // localStorage.setItem('google.state', state);
-
     window.location = url;
   }
 
   async handleCallback() {
-    // const prevState = localStorage.getItem('google.state');
-    // const responseQuery = this.ctx.route.query;
-
-    // if (prevState !== responseQuery.state) {
-    //  return
-    // }
-
-    // localStorage.setItem('google.state', null);
-
-    console.log('inside GoogleOAuth2Service.handleCallback',)
-
-    console.log('ctx  ============================ ',this.ctx.app.$axios.$post)
     try {
       const user = await this.ctx.app.$axios.$post('/auth/google', encodeQuery({
         code: this.ctx.query.code,
@@ -48,11 +34,6 @@ export default class GoogleOAuth2Service  {
     } catch (error) {
       console.log('ERRRRRROR in Googe.handleCallback', error.message)
     }
-    
-
-    console.log('inside GoogleOAuth2Service.handleCallback', user)
-
-    
   }
 
 }

@@ -7,11 +7,3 @@
   </v-layout>
 </template>
 
-<script>
-export default {
-  layout: 'user'
-}
-</script>
-
-
-

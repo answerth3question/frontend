@@ -18,7 +18,6 @@
 <script>
 import jwt from 'jsonwebtoken'
 export default {
-  middleware: 'auth',
   computed: {
     id() {
       const user = this.$store.state.auth.user;

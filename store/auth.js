@@ -1,6 +1,7 @@
 
 export const state = () => ({
   user: null,
+  strategy: '',
 });
 
 export const mutations = {
