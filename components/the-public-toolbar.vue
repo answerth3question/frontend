@@ -8,6 +8,11 @@
     <nuxt-link class="mx-1" to="/one">ONE</nuxt-link>
     <nuxt-link class="mx-1" to="/two">TWO</nuxt-link>
     <nuxt-link class="mx-1" to="/three">THREE</nuxt-link>
-    <nuxt-link class="mx-1" to="/login">LOGIN</nuxt-link>
+    <div v-if="$auth.isLoggedIn()">
+      <nuxt-link class="mx-1" to="/logout">LOG OUT</nuxt-link>
+    </div>
+    <div v-else>
+      <nuxt-link class="mx-1" to="/login">LOGIN</nuxt-link>
+    </div>
   </v-toolbar>
 </template>
