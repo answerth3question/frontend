@@ -7,9 +7,6 @@ export default async function(ctx) {
   auth.storage.removeUniversal('state');
   auth.storage.syncUniversal('id_token');
   let token = auth.storage.getUniversal('id_token');
-  // if (token) {
-  //   token = jwt.decode(token);
-  // }
   if (auth.isAtLogin) { // at the login page
     if (token && auth.isLoggedIn(token)) {
       ctx.app.router.push({ path: auth.redirect.home }); // go home if we're logged in already (kinda arbitrary...)

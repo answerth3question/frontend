@@ -28,10 +28,10 @@ export default class GoogleOAuth2Service  {
    * @returns {Promise} 
    */
   fetchIdToken(ctx) {
-    return ctx.app.$axios.$post('/auth/google', encodeQuery({
+    return ctx.app.$axios.$post('/api/auth/login?strategy=google', {
       code: ctx.query.code,
       client_id: process.env.GOOGLE_CLIENT_ID,
       redirect_uri: this.redirectUri,
-    }));
+    });
   }
 }
