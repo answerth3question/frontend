@@ -1,20 +1,43 @@
 <template>
   <v-app>
-   <v-content>
-     <v-container>
-       <v-layout>
-         <v-flex>
-           This is the admin layout
-         </v-flex>
-       </v-layout>
-       <nuxt />
-     </v-container>
-   </v-content>
+    <AppNavbar
+      app
+      title="Admin"
+      :routes="routes"
+    />
+    <v-content>
+      <v-container>
+        <nuxt />
+      </v-container>
+    </v-content>
   </v-app>
 </template>
 
 <script>
+import AppNavbar from '@/components/navbar'
 export default {
-  middleware: ['auth'],
+  middleware: 'is-admin',
+  components: {
+    AppNavbar
+  },
+  data() {
+    return {
+      routes: [
+        {
+          to: '/',
+          text: 'Home',
+        },
+        {
+          to: '/admin',
+          text: 'Admin',
+        },
+        {
+          to: '/admin/users',
+          text: 'Users'
+        }
+      ]
+    }
+  }
 }
 </script>
+

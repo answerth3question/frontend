@@ -1,6 +1,6 @@
 
 import nanoid from 'nanoid'
-import Storage from './storagev2';
+import Storage from './storage';
 import GoogleOAuth from './strategies/google'
 
 

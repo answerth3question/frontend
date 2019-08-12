@@ -86,6 +86,9 @@ module.exports = {
   env: {
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   },
+  router: {
+    middleware: 'auth',
+  }
   // auth: {
   //   plugins: ['~/plugins/auth'],
   //   strategies: {

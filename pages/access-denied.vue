@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-flex>
-      This is page 1
+      Access Denied
     </v-flex>
   </v-layout>
 </template>

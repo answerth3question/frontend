@@ -1,20 +1,33 @@
 <template>
   <v-app>
-   <v-content>
-     <v-container>
-       <v-layout>
-         <v-flex>
-           This is the user layout
-         </v-flex>
-       </v-layout>
-       <nuxt />
-     </v-container>
-   </v-content>
+    <AppNavbar app title="User" :routes="routes" />
+    <v-content>
+      <v-container>
+        <nuxt />
+      </v-container>
+    </v-content>
   </v-app>
 </template>
 
 <script>
+import AppNavbar from '@/components/navbar'
 export default {
-  middleware: ['auth'],
+  components: {
+    AppNavbar
+  },
+  data() {
+    return {
+      routes: [
+        {
+          to: '/',
+          text: 'Home',
+        },
+        {
+          to: '/user',
+          text: 'Profile'
+        }
+      ]
+    }
+  }
 }
 </script>

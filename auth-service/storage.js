@@ -1,126 +1,101 @@
-import cookie from 'cookie';
+import cookie from 'cookie'
 
-const isUnset = val => (val === null || typeof val === 'undefined');
-const isSet = val => !isUnset(val);
+const util = {
+  encodeValue(val) {
+    if (typeof val === 'string') {
+      return val;
+    }
+    return JSON.stringify(val);
+  },
+  decodeValue(val) {
+    if (typeof val === 'string') {
+      try {
+        return JSON.parse(val)
+      } catch (_) {};
+    }
+    return val;
+  },
+  isUnset(val) {
+    return val === null || typeof val === 'undefined';
+  }
+
+}
 
 export default class Storage {
+  vuexNamespace = 'auth'
   prefix = {
     localStorage: 'auth.',
     cookie: 'auth.',
-    token: '_token.',
-    refresh_token: '_refresh_token',
-  };
+  }
 
   constructor(ctx) {
     this.ctx = ctx;
   }
 
-  // Universal
   getUniversal(key) {
-    let value = this.getState(key);
-    if (!value) {
-      console.log('GOING TO GET COOKIE')
-      value = this.getCookie(key)
-    }
-    console.log('2 getUniversal', value, process.client)
-
-    if (isUnset(value)) {
-      value = this.getLocalStorage(key);
-    }
-    console.log('3 getUniversal', value, process.client)
-
-    return value;
+    return this.getState(key) || this.getLocalStorage(key) || this.getCookie(key);
   }
   setUniversal(key, val) {
-    if (isUnset(val)) {
-      return this.removeUniversal(key);
-    }
     this.setState(key, val);
-    this.setCookie(key, val);
     this.setLocalStorage(key, val);
-
-    return val;
+    this.setCookie(key, val);
   }
-  syncUniversal(key, defaultVal) {
+  syncUniversal(key, defaultValue) {
     let value = this.getUniversal(key);
-
-    if (isUnset(value) && isSet(defaultVal)) {
-      value = defaultVal;
+    if (util.isUnset(value) && !util.isUnset(defaultValue)) {
+      value = defaultValue;
     }
-
-    if (isSet(value)) {
-      this.setUniversal(value);
+    if (!util.isUnset(value)) {
+      this.setUniversal(key, value);
     }
     return value;
   }
   removeUniversal(key) {
-    this.removeCookie(key);
-    this.removeLocalStorage(key);
-    this.removeState(key);
+    this.setState(key, undefined);
+    this.setLocalStorage(key, undefined);
+    this.setCookie(key, undefined);
   }
 
-  // Local Storage
-  setLocalStorage(key, val) {
-    if (typeof localStorage !== 'undefined' && process.client) {
-      const _key = this.prefix.localStorage + key;
-      localStorage.setItem(_key, JSON.stringify(val));
-    }
+  // Vuex store
+  setState(key, val) {
+    this.ctx.store.commit('auth/SET', [key, val]);
   }
-  getLocalStorage(key) {
-    if (typeof localStorage !== 'undefined' && process.client) {
-      const _key = this.prefix.localStorage + key
-      return JSON.parse(localStorage.getItem(_key));
-    }
-  }
-  removeLocalStorage(key) {
-    if (typeof localStorage !== 'undefined') {
-      const _key = this.prefix.localStorage + key;
-      localStorage.removeItem(_key);
-    }
-  }
-
-  // Vuex
   getState(key) {
     return this.ctx.store.state.auth[key];
   }
-  setState(key, val) {
-    this.ctx.store.commit('auth/SET', [key, val])
+
+  // Local storage
+  setLocalStorage(key, val) {
+    if (typeof localStorage !== 'undefined') {
+      const _key = this.prefix.localStorage + key
+      if (util.isUnset(val)) {
+        return localStorage.removeItem(_key);
+      }
+      localStorage.setItem(_key, val);
+    }
   }
-  removeState(key) {
-    this.setState(key, undefined);
+  getLocalStorage(key) {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem(this.prefix.localStorage + key);
+    }
   }
 
   // Cookie
   setCookie(key, val) {
-    if (process.server && !this.ctx.res) {
-      return;
-    }
+    const _value = util.encodeValue(val);
+    const _key = this.prefix.cookie + key
 
-    const _key = this.prefix.cookie + key;
-    const _value = typeof val === 'string' ? val : JSON.stringify(val);
-    const _options = {};
-    if (val === null || val === undefined) {
-      _options.maxAge = -1;
-    }
-
-    if (typeof _options.expires === 'number') {
-      _options.expires = new Date(new Date() * 1 + _options.expires * 86400000)
-    }
-
-    const serialized = cookie.serialize(_key, _value, _options);
-
+    const serialized = cookie.serialize(_key, _value);
     if (process.client) {
       document.cookie = serialized;
     } else if (process.server && this.ctx.res) {
       const prevCookies = this.ctx.res.getHeader('Set-Cookie');
-      if (prevCookies) {
-        this.ctx.res.setHeader('Set-Cookie', [].concat(prevCookies, serialized).filter(c => c));
-      }
+      this.ctx.res.setHeader('Set-Cookie', [].concat(prevCookies, serialized).filter(c => c));
     }
 
     return val;
   }
-  getCookies() {
+  getAllCookies() {
     const cookieStr = process.client
       ? document.cookie
       : this.ctx.req.headers.cookie;
@@ -129,21 +104,13 @@ export default class Storage {
   }
   getCookie(key) {
     if (process.server && !this.ctx.req) {
-      console.log('RETURN EARLY FROM GET_COOKIE')
       return;
     }
+
     const _key = this.prefix.cookie + key;
-    console.log('GET_COOKIE _key', _key)
-    const cookies = this.getCookies();
-    console.log('GET_COOKIE cookies', cookies)
+    const cookies = this.getAllCookies();
     const value = cookies[_key] ? decodeURIComponent(cookies[_key]) : undefined;
-    console.log('GET_COOKIE value', value)
-    // if (typeof value === 'string') {
-    //   return value;
-    // }
-    return value;
-  }
-  removeCookie(key) {
-    this.setCookie(key, undefined);
+
+    return value === 'undefined' ? undefined : value;
   }
 }

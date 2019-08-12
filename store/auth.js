@@ -14,6 +14,12 @@ export const mutations = {
 }
 
 export const getters = {
+  role(state) {
+    if (state.id_token) {
+      return jwt.decode(state.id_token).user_claims.role;
+    }
+    return null;
+  },
   loggedIn(state) {
     return token => {
       let _token = token || state.id_token;

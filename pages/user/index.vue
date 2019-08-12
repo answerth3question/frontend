@@ -1,10 +1,7 @@
 <template>
   <v-layout>
     <v-flex>
-      Logging in...
+      This is the User profile page
     </v-flex>
   </v-layout>
 </template>
-
-
-

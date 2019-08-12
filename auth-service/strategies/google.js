@@ -1,6 +1,4 @@
 import nanoid from 'nanoid'
-import { encodeQuery } from './utils'
-
 
 export default class GoogleOAuth2Service  {
   authorizationEndpoint = 'https://accounts.google.com/o/oauth2/auth'

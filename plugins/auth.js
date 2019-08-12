@@ -1,4 +1,4 @@
-import Auth from "../auth-service/authv2";
+import Auth from "../auth-service/auth";
 
 export default function(ctx, inject) {
   const auth = new Auth(ctx);

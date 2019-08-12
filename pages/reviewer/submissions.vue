@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-flex>
-      This is page 3
+      This is the submissions page for the reviewer
     </v-flex>
   </v-layout>
 </template>
