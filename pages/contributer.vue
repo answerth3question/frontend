@@ -8,6 +8,6 @@
 
 <script>
 export default {
-  layout: 'user'
+  layout: 'contributer'
 }
 </script>

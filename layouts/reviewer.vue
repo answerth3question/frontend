@@ -17,6 +17,7 @@
 <script>
 import AppNavbar from '@/components/navbar'
 export default {
+  middleware: 'is-reviewer',
   components: {
     AppNavbar
   },

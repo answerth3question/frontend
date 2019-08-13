@@ -29,7 +29,7 @@ export default {
         },
         {
           to: '/admin',
-          text: 'Admin',
+          text: 'Profile',
         },
         {
           to: '/admin/users',

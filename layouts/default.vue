@@ -40,11 +40,11 @@ export default {
             }
           ];
           break;
-        case 'user':
+        case 'contributer':
           ret = [
             ...ret,
             {
-              to: '/user',
+              to: '/contributer',
               text: 'Profile',
             }
           ];

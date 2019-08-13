@@ -43,9 +43,7 @@ export default async function(ctx) {
     }
   } else if (auth.isAtLogout) { // at the logout page
     auth.storage.removeUniversal('id_token');
-    setTimeout(() => {
-      location.replace('/')
-    }, 1000);
+    ctx.redirect('/')
   } else { // all other pages with auth middleware activated
     if (util.routeOption(ctx.route, 'auth', false)) {
       console.log('skipping auth middleware')

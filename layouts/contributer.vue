@@ -23,7 +23,7 @@ export default {
           text: 'Home',
         },
         {
-          to: '/user',
+          to: '/contributer',
           text: 'Profile'
         }
       ]
