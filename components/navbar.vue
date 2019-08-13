@@ -5,9 +5,9 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <template v-for="(route, i) in routes">
-      <nuxt-link :key="i" :to="route.to" class="mx-1">{{route.text}}</nuxt-link>
+      <nuxt-link exact :key="i" :to="route.to" class="mx-1">{{route.text}}</nuxt-link>
     </template>
-    <div v-if="$auth.isLoggedIn()">
+    <div v-if="$auth.loggedIn()">
       <nuxt-link class="mx-1" to="/logout">log out</nuxt-link>
     </div>
     <div v-else>
@@ -22,6 +22,5 @@ export default {
     title: String,
     routes: Array,
   },
-  
 }
 </script>

@@ -31,7 +31,7 @@ export default class Auth {
   get isAtLogout() { return this.ctx.route.path === this.redirect.logout };
   get isAtCallback() { return this.ctx.route.path === this.redirect.callback };
 
-  isLoggedIn(token) {
+  loggedIn(token) {
     return this.ctx.store.getters['auth/loggedIn'](token);
   }
 
@@ -52,6 +52,5 @@ export default class Auth {
     this.storage.setUniversal('state', state);
     this.strategies[this.strategy].login(state);
   }
-
 
 }

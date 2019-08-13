@@ -8,6 +8,12 @@
 
 <script>
 export default {
-  layout: 'admin'
+  layout: 'admin',
+  mounted() {
+    this.$store.dispatch('admin/getAppUsers');
+  },
+  asyncData(ctx) {
+    ctx.store.dispatch('admin/getAppUsers');
+  },
 }
 </script>
