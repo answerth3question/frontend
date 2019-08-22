@@ -27,35 +27,6 @@ const strategies = {
   }
 }
 
-function createVuexAuthMod(statorade) {
-  return {
-    namespaced: true,
-    state: () => statorade,
-    mutations: {
-      SET(state, [key, val]) {
-        state[key] = val;
-      }
-    },
-    getters: {
-      role(state) {
-        if (state.id_token) {
-          return jwt.decode(state.id_token).user_claims.role;
-        }
-        return null;
-      },
-      loggedIn(state) {
-        return token => {
-          let _token = token || state.id_token;
-          if (!_token) {
-            return false;
-          }
-          return Date.now() / 1000 < jwt.decode(_token).exp;
-        }
-      }
-    }
-  }
-}
-
 export default class SimpleAuth {
   redirect = {
     home: '/',
@@ -73,12 +44,25 @@ export default class SimpleAuth {
     this.storage = new Storage(ctx);
   }
 
+  get isAtHome() { return this.ctx.route.path === this.redirect.home };
   get isAtLogin() { return this.ctx.route.path === this.redirect.login };
   get isAtLogout() { return this.ctx.route.path === this.redirect.logout };
   get isAtCallback() { return this.ctx.route.path === this.redirect.callback };
 
-  loggedIn(token) {
-    return this.ctx.store.getters['auth/loggedIn'](token);
+  loggedIn() {
+    const token = process.client
+      ? this.storage.getState('id_token')
+      : this.storage.getCookie('id_token');
+    // console.log('there is a token in process:', process.server ? 'server' : 'client', !!token)
+    const decodedToken = jwt.decode(token);
+    if (decodedToken) {
+      return Date.now() / 1000 < decodedToken.exp;
+    }
+  }
+
+  logout() {
+    this.storage.removeCookie('id_token', true);
+    this.storage.removeState('id_token');
   }
 
   login(strategyName) {
@@ -93,20 +77,11 @@ export default class SimpleAuth {
   async fetchUser() {
     const prevState = this.storage.getCookie('state');
     this.storage.removeCookie('state');
-    console.log(prevState, this.ctx.query.state)
     if (prevState !== this.ctx.query.state) {
       return;
     }
     try {
       const user = await strategies[this.strategy].userInfo(this.ctx, this.redirectUri);
-      console.log('successful login of user', user)
-      // this.storage.setState('id_token', user.id_token);
-      const prevState = this.ctx.store.state.auth;
-      this.ctx.store.registerModule('auth', createVuexAuthMod({
-        ...prevState,
-        id_token: user.id_token
-      }))
-      // console.log(this.ctx.store.state.auth)
       this.storage.setCookie('id_token', user.id_token, true);
     } catch (error) {
       console.error(error.message);

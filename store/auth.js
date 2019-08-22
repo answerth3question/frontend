@@ -20,14 +20,5 @@ export const getters = {
     }
     return null;
   },
-  loggedIn(state) {
-    return token => {
-      let _token = token || state.id_token;
-      if (!_token) {
-        return false;
-      }
-      return Date.now() / 1000 < jwt.decode(_token).exp;
-    }
-  }
 }
 

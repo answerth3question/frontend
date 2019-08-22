@@ -23,10 +23,9 @@ export default class SimpleStorage {
 
   // Cookies
   setCookie(key, val, isSecure) {
-    // if (process.server) {
     const serialized = serializeCookie(`auth.${key}`, val, {
       httpOnly: isSecure,
-      secure: isSecure,
+      secure: false,
       maxAge: 36e3,
     });
     if (process.client) {
@@ -36,19 +35,7 @@ export default class SimpleStorage {
       this.ctx.res.setHeader('Set-Cookie', [prevCookies, serialized].filter(c => c));
     }
   }
-  // setCookie(key, val) {
-  //   const serialized = cookie.serialize(`auth.${key}`, val, {
-  //     httpOnly: true,
-  //     secure: true,
-  //   });
-  //   if (process.client) {
-  //     document.cookie = serialized;
-  //   } else {
-  //     const prevCookies = this.ctx.res.getHeader('Set-Cookie');
-  //     this.ctx.res.setHeader('Set-Cookie', [prevCookies, serialized]);
-  //   }
-  //   return val;
-  // }
+
 
   getCookie(key) {
     if (process.server && !this.ctx.req) {
@@ -60,6 +47,8 @@ export default class SimpleStorage {
 
     let myCookie = allTheCookies[`auth.${key}`];
 
+    // console.log('my cookie in getCookie', myCookie)
+
     if (myCookie) {
       myCookie = decodeURIComponent(myCookie);
       if (myCookie !== 'undefined') {
@@ -70,22 +59,8 @@ export default class SimpleStorage {
     return undefined;
   }
 
-  // getCookie(key) {
-  //   if (process.server && !this.ctx.req) {
-  //     return
-  //   }
-  //   const cookieStr = process.client
-  //     ? document.cookie
-  //     : this.ctx.req.cookie;
-  //   const cookies = cookie.parse(cookieStr || '') || {};
-
-  //   let ret = cookies[`auth.${key}`] ? decodeURIComponent(cookies[`auth.${key}`]) : null;
-  //   ret = ret === 'null' ? null : ret; // if ret is a string that says 'null', set it to real null
-  //   return ret;
-  // }
-
-  removeCookie(key) {
-    this.setCookie(key, undefined);
+  removeCookie(key, isSecure) {
+    this.setCookie(key, undefined, isSecure);
   }
 
 }
