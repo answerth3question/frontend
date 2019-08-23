@@ -14,9 +14,9 @@ export const mutations = {
 }
 
 export const getters = {
-  role(state) {
+  roles(state) {
     if (state.id_token) {
-      return jwt.decode(state.id_token).user_claims.role;
+      return jwt.decode(state.id_token).user_claims.roles;
     }
     return null;
   },

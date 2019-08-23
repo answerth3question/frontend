@@ -53,16 +53,19 @@ export default class SimpleAuth {
     const token = process.client
       ? this.storage.getState('id_token')
       : this.storage.getCookie('id_token');
-    // console.log('there is a token in process:', process.server ? 'server' : 'client', !!token)
     const decodedToken = jwt.decode(token);
     if (decodedToken) {
       return Date.now() / 1000 < decodedToken.exp;
     }
   }
 
-  logout() {
+  async logout() {
+    if (this.ctx.query.revoke) {
+      await this.ctx.$axios.$post('/api/auth/revoke-access');
+    }
     this.storage.removeCookie('id_token', true);
     this.storage.removeState('id_token');
+    this.ctx.$axios.setToken(false);
   }
 
   login(strategyName) {

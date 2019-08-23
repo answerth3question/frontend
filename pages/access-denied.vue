@@ -5,3 +5,9 @@
     </v-flex>
   </v-layout>
 </template>
+
+<script>
+export default {
+  auth: false,
+}
+</script>

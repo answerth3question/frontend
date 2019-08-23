@@ -28,13 +28,15 @@ export default async function(ctx) {
     }
   } else if (auth.isAtLogout) {
     if (process.server) {
-      auth.logout();
+      await auth.logout();
       ctx.redirect('/')
     } else {
-      location.replace('/logout')
+      location.replace(ctx.route.fullPath);
     }
   } else if (!util.routeOption(ctx.route, 'auth', false) && !auth.loggedIn()) {
-    console.log('You are not authorized to access this page!');
-    ctx.redirect('/login');
+    if (!auth.loggedIn()) {
+      console.log('You must be logged in to access this page');
+      ctx.redirect('/logout');
+    }
   }
 }
