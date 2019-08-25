@@ -7,7 +7,26 @@
     class="blue lighten-5"
   >
     <v-list dense class="pt-1">
-      
+      <template v-for="(route, i) in routes">
+        <!-- routes with child routes -->
+        <v-list-group v-if="route.children && route.children.length" :key="i" value="true">
+          <template v-slot:activator>
+            <v-list-tile exact :to="route.to">
+              <v-list-tile-title>{{route.text}}</v-list-tile-title>
+            </v-list-tile>
+          </template>
+          <template v-for="(child, i) in route.children">
+            <v-list-tile :key="i" exact :to="child.to">
+              <v-list-tile-title>{{child.text}}</v-list-tile-title>
+            </v-list-tile>
+          </template>
+          <v-list-tile ></v-list-tile>
+        </v-list-group>
+        <!-- routes WITHOUT children -->
+        <v-list-tile v-else :key="i" :to="route.to">
+          <v-list-tile-title>{{route.text}}</v-list-tile-title>
+        </v-list-tile>
+      </template>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -18,38 +37,12 @@ export default {
     return {
       adminRoutes: [
         {
-          to: '/',
-          text: 'Home',
-        },
-        {
-          to: '/admin',
-          text: 'Admin'
+          to: '/admin/users',
+          text: 'Users',
         },
       ],
-      reviewerRoutes: [
-        {
-          to: '/',
-          text: 'Home',
-        },
-        {
-          to: '/reviewer',
-          text: 'Profile'
-        },
-        {
-          to: '/reviewer/submissions',
-          text: 'Submissions'
-        }
-      ],
-      contributerRoutes: [
-        {
-          to: '/',
-          text: 'Home',
-        },
-        {
-          to: '/contributer',
-          text: 'Profile'
-        }
-      ],
+      reviewerRoutes: [],
+      contributerRoutes: [],
     };
   },
   computed: {

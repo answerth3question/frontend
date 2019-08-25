@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  layout: 'admin',
+  layout: 'authenticated',
   mounted() {
     this.$store.dispatch('admin/getAppUsers');
   },

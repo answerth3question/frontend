@@ -8,6 +8,6 @@
 
 <script>
 export default {
-  layout: 'reviewer'
+  layout: 'authenticated'
 }
 </script>

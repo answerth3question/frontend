@@ -1,7 +1,7 @@
 <template>
   <v-toolbar app fixed clipped-left flat class="teal lighten-5">
     <v-toolbar-title>
-      <nuxt-link exact-active-class="home-link" exact to="/">StallWall</nuxt-link>
+      <nuxt-link  style="color: black;" exact to="/">StallWall</nuxt-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <nuxt-link v-if="$auth.loggedIn()" exact to="/logout?revoke=true">Logout</nuxt-link>
@@ -9,8 +9,3 @@
   </v-toolbar>
 </template>
 
-<style scoped>
-.home-link {
-  color: black;
-}
-</style>

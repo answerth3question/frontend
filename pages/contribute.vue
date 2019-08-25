@@ -8,6 +8,6 @@
 
 <script>
 export default {
-  layout: 'contributer'
+  layout: 'authenticated'
 }
 </script>
