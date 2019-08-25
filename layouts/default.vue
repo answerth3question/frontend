@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <AppNavbar app :routes="routes" />
+    <AppNavbar app/>
     <v-content>
       <v-container>
         <nuxt />
@@ -15,43 +15,5 @@ export default {
   components: {
     AppNavbar
   },
-  computed: {
-    routes() {
-      const userRole = this.$store.getters['auth/role'];
-
-      let ret = [{ to: '/', text: 'Home' }];
-      
-      switch(userRole) {
-        case 'admin':
-          ret = [
-            ...ret, 
-            {
-              to: '/admin',
-              text: 'Admin',
-            }
-          ];
-          break;
-        case 'reviewer':
-          ret = [
-            ...ret,
-            {
-              to: '/reviewer',
-              text: 'Reviewer',
-            }
-          ];
-          break;
-        case 'contributer':
-          ret = [
-            ...ret,
-            {
-              to: '/contributer',
-              text: 'Profile',
-            }
-          ];
-          break;
-      }
-      return ret;
-    }
-  }
 }
 </script>

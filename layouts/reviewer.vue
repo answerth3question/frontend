@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <AppNavbar app title="Reviewer" :routes="routes" />
+    <AppNavbar app title="Reviewer" />
    <v-content>
      <v-container>
        <v-layout>
@@ -21,23 +21,5 @@ export default {
   components: {
     AppNavbar
   },
-  data() {
-    return {
-      routes: [
-        {
-          to: '/',
-          text: 'Home',
-        },
-        {
-          to: '/reviewer',
-          text: 'Profile'
-        },
-        {
-          to: '/reviewer/submissions',
-          text: 'Submissions'
-        }
-      ]
-    }
-  }
 }
 </script>

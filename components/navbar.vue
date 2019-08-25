@@ -1,26 +1,16 @@
 <template>
-  <v-toolbar flat class="transparent">
+  <v-toolbar app fixed clipped-left flat class="teal lighten-5">
     <v-toolbar-title>
-      Welcome {{title}}
+      <nuxt-link exact-active-class="home-link" exact to="/">StallWall</nuxt-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <template v-for="(route, i) in routes">
-      <nuxt-link exact :key="i" :to="route.to" class="mx-1">{{route.text}}</nuxt-link>
-    </template>
-    <div v-if="$auth.loggedIn()">
-      <nuxt-link class="mx-1" to="/logout?revoke=true">log out</nuxt-link>
-    </div>
-    <div v-else>
-      <nuxt-link class="mx-1" to="/login">login</nuxt-link>
-    </div>
+    <nuxt-link v-if="$auth.loggedIn()" exact to="/logout?revoke=true">Logout</nuxt-link>
+    <nuxt-link v-else exact to="/login">Login</nuxt-link>
   </v-toolbar>
 </template>
 
-<script>
-export default {
-  props: {
-    title: String,
-    routes: Array,
-  },
+<style scoped>
+.home-link {
+  color: black;
 }
-</script>
+</style>

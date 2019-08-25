@@ -14,11 +14,11 @@ export const mutations = {
 }
 
 export const getters = {
-  roles(state) {
+  claims(state) {
     if (state.id_token) {
-      return jwt.decode(state.id_token).user_claims.roles;
+      return jwt.decode(state.id_token).user_claims;
     }
-    return null;
+    return {};
   },
 }
 

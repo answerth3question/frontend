@@ -1,5 +1,6 @@
 export default function({ store, redirect }) {
-  if (!store.getters['auth/roles'].includes('reviewer')) {
+  const userPermission = store.getters['auth/claims'].permission;
+  if (!userPermission || !userPermission.includes('reviewer')) {
     redirect('/access-denied');
   }
 }

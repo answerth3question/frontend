@@ -17,8 +17,8 @@
 <script>
 export default {
   auth: false,
-  mounted() {
-    // this.$auth.storage.syncUniversal('id_token');
-  }
+  layout(ctx) {
+    return ctx.app.$auth.loggedIn() ? 'authenticated' : ''
+  },
 }
 </script>
