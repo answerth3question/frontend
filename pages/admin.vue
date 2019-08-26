@@ -9,11 +9,9 @@
 <script>
 export default {
   layout: 'authenticated',
+  middleware: 'is-admin',
   mounted() {
     this.$store.dispatch('admin/getAppUsers');
-  },
-  asyncData(ctx) {
-    ctx.store.dispatch('admin/getAppUsers');
   },
 }
 </script>

@@ -8,6 +8,7 @@
 
 <script>
 export default {
-  layout: 'authenticated'
+  layout: 'authenticated',
+  middleware: 'is-reviewer'
 }
 </script>

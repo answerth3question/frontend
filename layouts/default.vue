@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <AppNavbar app/>
+    <AppNavbar />
     <v-content>
       <v-container>
         <nuxt />
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import AppNavbar from '@/components/navbar'
+import AppNavbar from '@/components/nav/navbar'
 export default {
   components: {
     AppNavbar

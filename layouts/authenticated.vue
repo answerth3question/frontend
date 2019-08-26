@@ -1,7 +1,6 @@
 <template>
-  <v-app>
-    <AuthenticatedNavDrawer  />
-     <AppNavbar />
+  <v-app>    
+    <AppNavbar />
     <v-content>
       <v-container fluid fill-height>
         <nuxt />
@@ -11,11 +10,9 @@
 </template>
 
 <script>
-import AuthenticatedNavDrawer from '@/components/layouts/authenticated-navdrawer'
-import AppNavbar from '@/components/navbar'
+import AppNavbar from '@/components/nav/navbar'
 export default {
   components: {
-    AuthenticatedNavDrawer,
     AppNavbar,
   },
 }
