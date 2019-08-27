@@ -5,6 +5,12 @@ export const actions = {
     if (token) {
       vuexCtx.commit('auth/SET', ['id_token', token])
       this.$axios.setToken(token, 'Bearer');
+      try {
+        const user = await this.$axios.$get(`/api/user`);
+        vuexCtx.commit('auth/SET', ['user', user]);
+      } catch (error) {
+        console.error(error.message)
+      }
     }
   }
 }
