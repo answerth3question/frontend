@@ -29,20 +29,19 @@
             </v-list-tile>
           </v-list>
 
+          <template v-if="routes.length">
+            <v-divider></v-divider>
+            <v-list dense>
+              <template v-for="(route, i) in routes">
+                <v-list-tile :key="i" :to="route.to" active-class="haha">
+                  <v-list-tile-content>
+                    {{route.text}}
+                  </v-list-tile-content>
+                </v-list-tile>
+              </template>
+            </v-list>
+          </template>
           <v-divider></v-divider>
-
-          <v-list dense>
-            <template v-for="(route, i) in routes">
-              <v-list-tile :key="i" :to="route.to" active-class="haha">
-                <v-list-tile-content>
-                  {{route.text}}
-                </v-list-tile-content>
-              </v-list-tile>
-            </template>
-          </v-list>
-
-          <v-divider></v-divider>
-
           <v-list dense>
             <v-list-tile to="/logout?revoke=true">
               <v-list-tile-content>
@@ -87,10 +86,10 @@ export default {
           });
         }
         if (userPermissions.includes('contributer')) {
-          result.push({
-            to: '/contribute',
-            text: 'Contribute',
-          });
+          // result.push({
+          //   to: '/contribute',
+          //   text: 'Contribute',
+          // });
         }
       }
       return result;

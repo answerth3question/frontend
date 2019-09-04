@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-flex>
-      Submit a new prompt or respond to one
+      Manage users' roles and do other admin things
     </v-flex>
   </v-layout>
 </template>

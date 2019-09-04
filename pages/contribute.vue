@@ -1,7 +1,6 @@
 <template>
   <v-layout>
     <v-flex>
-      This the the 'contribute' wrapper page
       <nuxt-child></nuxt-child>
     </v-flex>
   </v-layout>

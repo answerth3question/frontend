@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-flex>
-      This is the Reviewer profile page
+      Review posts submitted by contributers
     </v-flex>
   </v-layout>
 </template>
