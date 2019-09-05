@@ -20,15 +20,13 @@ import { mapState } from 'vuex';
 export default {
   auth: false,
   layout(ctx) {
-    return ctx.app.$auth.loggedIn() ? 'authenticated' : ''
+    return ctx.app.$auth.loggedIn() ? 'authenticated' : '';
   },
-  async fetch({ store, $axios }) {
+  async fetch({ store }) {
     try {
-      const getPostResult = await $axios.$get('/api/post/')
-      store.commit('posts/SET', ['posts', getPostResult.posts]);
+      await store.dispatch('posts/FETCH_POSTS');
     } catch (error) {
-      const errorPayload = [...store.state.posts.errors, error.message]; 
-      store.commit('posts/SET', ['errors', errorPayload]);
+      console.error(error.message);
     }
   },
   computed: {

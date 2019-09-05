@@ -6,6 +6,9 @@
     <v-spacer></v-spacer>
 
     <template v-if="$auth.loggedIn()">
+      <v-btn outline to="/contribute">
+        <v-icon left>add</v-icon>Add Something
+      </v-btn>
       <v-menu v-model="showMenu" offset-y max-width="250" min-width="250">
         <template v-slot:activator="{ on }">
           <v-btn icon  v-on="on">
@@ -101,5 +104,8 @@ export default {
 <style scoped>
 .haha {
   color: black;
+}
+.contributing {
+  color: red
 }
 </style>

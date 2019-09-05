@@ -2,7 +2,17 @@
 export const state = () => ({
   errors: [],
   posts: [],
+  newPost: '',
 });
+
+export const getters = {
+  displayPosts(state) {
+    return state.posts.map(p => ({
+      text: p.content.text,
+      promptId: p.post_prompt_id,
+    }))
+  }
+}
 
 
 export const mutations = {
@@ -13,16 +23,22 @@ export const mutations = {
   }
 };
 
+const handleError = (ctx, error) => ctx.commit('SET', ['errors', [...ctx.state.errors, error.message]]); 
 
 export const actions = {
-  async FETCH_POSTS({ commit }) {
+  async FETCH_POSTS(ctx) {
     try {
-      console.log('in FETCH_POSTS')
-      const posts = await this.$axios.$get('/api/post/');
-      console.log(posts)
-      commit('SET', ['posts', posts])
+      ctx.commit('SET', ['posts', await this.$axios.$get('/api/post/')])
     } catch (error) {
-      commit('SET', ['errors', [...state.errors, error]])
+      handleError(ctx, error);
     }
-  }
+  },
+  async SUBMIT_POST(ctx, newPost) {
+    try {
+      await this.$axios.$post('/api/post/', newPost);
+    } catch (error) {
+      handleError(ctx, error);
+    }
+  },
 };
+
