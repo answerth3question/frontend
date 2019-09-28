@@ -20,7 +20,7 @@
             <v-list-tile to="/profile" active-class="haha">
               <v-list-tile-content>
                 <v-list-tile-title style="color: green;">
-                  {{user.role[0].toUpperCase() + user.role.slice(1)}}
+                  {{user.role.name[0].toUpperCase() + user.role.name.slice(1)}}
                 </v-list-tile-title>
                 <v-list-tile-title class="body-2">
                   {{user.username}}
@@ -71,9 +71,12 @@ export default {
     }
   },
   computed: {
-    ...mapState('auth', ['user']),
+    // ...mapState('user', ['id', 'email']),
+    user() {
+      return this.$store.state.user;
+    },
     routes() {
-      const userPermissions = this.$store.getters['auth/claims'].permission;
+      const userPermissions = this.$store.getters['auth/permission'];
       const result = [];
       if (userPermissions) {
         if (userPermissions.includes('admin')) {

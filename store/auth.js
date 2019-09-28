@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 export const state = () => ({
-  user: null,
+  // user: null,
   id_token: null,
   state: '',
   strategy: '',
@@ -14,11 +14,14 @@ export const mutations = {
 }
 
 export const getters = {
-  claims(state) {
+  permission(state) {
     if (state.id_token) {
-      return jwt.decode(state.id_token).user_claims;
+      const claims = jwt.decode(state.id_token).user_claims;
+      if (claims) {
+        return claims.permission;
+      }
     }
-    return {};
+    return null;
   },
 }
 

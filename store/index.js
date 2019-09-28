@@ -6,8 +6,7 @@ export const actions = {
       vuexCtx.commit('auth/SET', ['id_token', token])
       this.$axios.setToken(token, 'Bearer');
       try {
-        const user = await this.$axios.$get(`/api/user`);
-        vuexCtx.commit('auth/SET', ['user', user]);
+        await vuexCtx.dispatch('user/FETCH_PROFILE');
       } catch (error) {
         console.error(error.message)
       }
