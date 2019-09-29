@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 
 export const state = () => ({
-  // user: null,
   id_token: null,
   state: '',
   strategy: '',
