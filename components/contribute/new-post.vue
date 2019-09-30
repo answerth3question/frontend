@@ -50,6 +50,9 @@ export default {
     },
   },
   computed: {
+    selectedPrompt() {
+      return this.$store.getters['prompt/selected'];
+    },
     content: {
       get() { return this.$store.state.newPost.content },
       set(val) { this.$store.commit('newPost/SET', ['content', val]) },

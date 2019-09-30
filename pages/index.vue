@@ -10,6 +10,10 @@
       md6
     >
       This is the home page
+      <p v-for="p in prompts" :key="p.id">
+        <nuxt-link :to="`/contribute/${p.id}`"> {{p.content}}</nuxt-link>
+       
+      </p>
     </v-flex>
   </v-layout>
 </template>
@@ -22,9 +26,9 @@ export default {
     return ctx.app.$auth.loggedIn() ? 'authenticated' : '';
   },
   computed: {
-    ...mapState('posts', [
-      'posts',
-    ]),
+    prompts() {
+      return this.$store.state.prompt.pending;
+    }
   }
 }
 </script>

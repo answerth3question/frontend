@@ -1,6 +1,5 @@
 export const state = () => ({
   content: '',
-  prompt_id: '',
 })
 
 export const mutations = {
@@ -14,11 +13,14 @@ export const mutations = {
 export const actions = {
   async SUBMIT_POST({ commit, dispatch, state, rootGetters }) {
     try {
-      await this.$axios.$post(`/api/post/create`, {
-        content: state.content,
-        prompt_id: state.prompt_id,
-      });
-      await dispatch('posts/FETCH', null, { root: true });
+      const prompt = rootGetters['prompt/selected'];
+      if (prompt) {
+        await this.$axios.$post(`/api/post/create`, {
+          content: state.content,
+          prompt_id: prompt.id,
+        });
+      }
+      await dispatch('post/FETCH', null, { root: true });
     } catch (error) {
       
     }

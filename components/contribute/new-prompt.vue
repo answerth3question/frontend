@@ -1,6 +1,13 @@
 <template>
   <v-card flat class="blue-grey lighten-5">
+    <v-card-title class="title">
+      Submit a prompt
+    </v-card-title>
     <v-card-text>
+      <v-snackbar v-model="success">
+        Success!
+        <v-btn @click="success = false">Close</v-btn>
+      </v-snackbar>
       <v-form 
         @submit.prevent="onSubmit"
         ref="form" 
@@ -20,7 +27,7 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn flat color="secondary" @click="onReset">Reset</v-btn>
-      <v-btn class="primary" @click="onSubmit">Submit</v-btn>
+      <v-btn :disabled="!valid" class="primary" @click="onSubmit">Submit</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -51,9 +58,14 @@ export default {
       get() { return this.$store.state.newPrompt.content },
       set(val) { this.$store.commit('newPrompt/SET', ['content', val]) }
     },
+    success: {
+      get() { return this.$store.state.newPrompt.success },
+      set(val) { this.$store.commit('newPrompt/SET', ['success', val]) },
+    },
     rules() {
       return [
-        v => (v && v.length <= this.maxLen) || `Sorry, prompts must be under ${this.maxLen} characters`,
+        v => (v.length <= this.maxLen) || `Sorry, prompts must be under ${this.maxLen} characters`,
+        v => !!v || 'You cannot submit nothing'
       ]
     }
   }

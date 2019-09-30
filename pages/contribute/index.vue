@@ -22,10 +22,10 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('posts', ['SET'])
+    ...mapMutations('post', ['SET'])
   },
   computed: {
-    ...mapState('posts', {
+    ...mapState('post', {
       _newPost: state => state.newPost,
     }),
     newPost: {

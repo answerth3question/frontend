@@ -15,8 +15,8 @@ export const actions = {
       // we need to await the result of these dispatches because 
       // we are in nuxtServerInit
       await Promise.all([
-        vuexCtx.dispatch('posts/FETCH'),
-        vuexCtx.dispatch('prompts/FETCH'),
+        vuexCtx.dispatch('post/FETCH'),
+        vuexCtx.dispatch('prompt/FETCH'),
       ]);
     } catch (error) {
       console.error(error.message)
