@@ -6,9 +6,10 @@ export const state = () => ({
   approved: [],
 });
 
+
 export const mutations = {
   SET(state, [key, val]) {
-    if (state[key] != undefined) {
+    if (state[key] !== undefined) {
       state[key] = val;
     }
   },
@@ -26,19 +27,12 @@ export const mutations = {
 const handleError = (ctx, error) => ctx.commit('SET', ['errors', [...ctx.state.errors, error.message]]); 
 
 export const actions = {
-  async FETCH_POSTS(ctx) {
+  async FETCH_PROMPTS(ctx) {
     try {
-      const posts = await this.$axios.$get('/api/post/');
-      ctx.commit('SET', ['pending', posts.pending]);
-      ctx.commit('SET', ['rejected', posts.rejected]);
-      ctx.commit('SET', ['approved', posts.approved]);
-    } catch (error) {
-      handleError(ctx, error);
-    }
-  },
-  async SUBMIT_POST(ctx, newPost) {
-    try {
-      await this.$axios.$post('/api/post/', newPost);
+      const prompts = await this.$axios.$get('/api/prompt/');
+      ctx.commit('SET', ['pending', prompts.pending]);
+      ctx.commit('SET', ['rejected', prompts.rejected]);
+      ctx.commit('SET', ['approved', prompts.approved]);
     } catch (error) {
       handleError(ctx, error);
     }

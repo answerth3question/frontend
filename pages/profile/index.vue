@@ -19,7 +19,7 @@
 import { mapState } from 'vuex'
 export default {
   computed: {
-    ...mapState('auth', ['user'])
+    ...mapState(['user']),
   }
 }
 </script>

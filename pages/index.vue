@@ -10,7 +10,6 @@
       md6
     >
       This is the home page
-      <p v-for="post in $store.state.posts.posts.map(p => p.content)" :key="post.id">{{post.text}}</p>
     </v-flex>
   </v-layout>
 </template>
@@ -22,13 +21,13 @@ export default {
   layout(ctx) {
     return ctx.app.$auth.loggedIn() ? 'authenticated' : '';
   },
-  // async fetch({ store }) {
-  //   try {
-  //     await store.dispatch('posts/FETCH_POSTS');
-  //   } catch (error) {
-  //     console.error(error.message);
-  //   }
-  // },
+  async fetch({ store }) {
+    try {
+      await store.dispatch('posts/FETCH_POSTS');
+    } catch (error) {
+      console.error(error.message);
+    }
+  },
   computed: {
     ...mapState('posts', [
       'posts',

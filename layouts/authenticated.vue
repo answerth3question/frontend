@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import AppNavbar from '@/components/nav/navbar'
+import AppNavbar from '@/components/app/navbar'
 export default {
   components: {
     AppNavbar,

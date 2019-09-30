@@ -1,20 +1,21 @@
 <template>
   <v-layout>
     <v-flex>
-      Submit a new prompt or respond to one
-      <v-textarea
-        outline
-        :counter="postMaxLen"
-        :rules="[() => newPost.length <= postMaxLen || `Oops, you gotta keep it under ${postMaxLen} characters`]"
-        v-model="newPost"
-      ></v-textarea>
+      <NewPost />
+      <NewPrompt />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+import NewPost from '@/components/contribute/new-post'
+import NewPrompt from '@/components/contribute/new-prompt'
 export default {
+  components: {
+    NewPost,
+    NewPrompt,
+  },
   data() {
     return {
       postMaxLen: 20,
