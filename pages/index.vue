@@ -21,13 +21,6 @@ export default {
   layout(ctx) {
     return ctx.app.$auth.loggedIn() ? 'authenticated' : '';
   },
-  async fetch({ store }) {
-    try {
-      await store.dispatch('posts/FETCH_POSTS');
-    } catch (error) {
-      console.error(error.message);
-    }
-  },
   computed: {
     ...mapState('posts', [
       'posts',

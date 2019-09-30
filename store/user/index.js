@@ -25,7 +25,7 @@ export const mutations = {
 };
 
 export const actions = {
-  async FETCH_PROFILE({ commit }) {
+  async FETCH({ commit }) {
     try {
       const profile = await this.$axios.$get('/api/user/profile');
       commit('SET_PROFILE', profile);

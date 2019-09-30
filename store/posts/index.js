@@ -12,36 +12,30 @@ export const mutations = {
       state[key] = val;
     }
   },
-  SET_PENDING(state, posts) {
-    state.pending = posts;
+  SET_ALL(state, posts) {
+    state.pending = posts.pending;
+    state.rejected = posts.rejected;
+    state.approved = posts.approved;
   },
-  SET_REJECTED(state, posts) {
-    state.rejected = posts;
-  },
-  SET_APPROVED(state, posts) {
-    state.approved = posts;
+  SET_APPROVED(state, approvedPosts) {
+    state.approved = approvedPosts;
   },
 };
 
 const handleError = (ctx, error) => ctx.commit('SET', ['errors', [...ctx.state.errors, error.message]]); 
 
 export const actions = {
-  async FETCH_POSTS(ctx) {
+  async FETCH(ctx) {
     try {
-      const posts = await this.$axios.$get('/api/post/');
-      ctx.commit('SET', ['pending', posts.pending]);
-      ctx.commit('SET', ['rejected', posts.rejected]);
-      ctx.commit('SET', ['approved', posts.approved]);
+      const perms = ctx.rootGetters['auth/permission'];
+      if (perms && perms.includes('reviewer')) {
+        ctx.commit('SET_ALL', await this.$axios.$get('/api/post/all'));
+      } else {
+        ctx.commit('SET_APPROVED', await this.$axios.$get('/api/post/approved'));
+      }
     } catch (error) {
       handleError(ctx, error);
     }
-  },
-  async SUBMIT_POST(ctx, newPost) {
-    try {
-      await this.$axios.$post('/api/post/', newPost);
-    } catch (error) {
-      handleError(ctx, error);
-    }
-  },
+  }
 };
 

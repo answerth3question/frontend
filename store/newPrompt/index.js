@@ -13,8 +13,8 @@ export const mutations = {
 export const actions = {
   async SUBMIT_PROMPT({ commit, dispatch, state, rootState }) {
     try {
-      await this.$axios.$post(`/api/prompt/`, { content: state.content });
-      await dispatch('prompts/FETCH_PROMPTS', null, { root: true });
+      await this.$axios.$post(`/api/prompt/create`, { content: state.content });
+      await dispatch('prompts/FETCH', null, { root: true });
     } catch (error) {
       
     }
