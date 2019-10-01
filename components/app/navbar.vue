@@ -6,7 +6,7 @@
     <v-spacer></v-spacer>
 
     <template v-if="$auth.loggedIn()">
-      <v-btn outline to="/contribute">
+      <v-btn outline to="/scrawl">
         <v-icon left>add</v-icon>Add Something
       </v-btn>
       <v-menu v-model="showMenu" offset-y max-width="250" min-width="250">

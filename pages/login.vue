@@ -1,12 +1,10 @@
 <template>
   <v-layout justify-center align-center>
     <v-flex xs4>
-      <v-card>
-        <v-card-title class="title text-xs-center">
-          Log in or create an account
-        </v-card-title>
+      <v-card width="350" height="500">
+        <v-card-title></v-card-title>
         <v-card-text>
-          <v-layout justify-center>
+          <v-layout justify-center align-center>
             <GoogleLoginButton />
           </v-layout>
         </v-card-text>

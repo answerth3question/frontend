@@ -1,4 +1,4 @@
-import { handleActionError } from '@/util/index'
+import util from '@/util/index'
 
 export const state = () => ({
   content: '',
@@ -16,7 +16,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async SUBMIT_PROMPT(ctx) {
+  async SUBMIT(ctx) {
     try {
       ctx.commit('SET', ['busy', true]);
       await this.$axios.$post(`/api/prompt/create`, { content: ctx.state.content });
@@ -24,7 +24,7 @@ export const actions = {
       ctx.commit('SET', ['submitSuccess', true]);
       ctx.dispatch('prompt/FETCH', null, { root: true });
     } catch (error) {
-      handleActionError(ctx, error)
+      util.handleActionError(ctx, error)
     } finally {
       ctx.commit('SET', ['busy', false]);
     }

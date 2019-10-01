@@ -1,19 +1,7 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
+  <v-layout column justify-center align-center>
+    <v-flex xs12>
       This is the home page
-      <p v-for="p in prompts" :key="p.id">
-        <nuxt-link :to="`/contribute/${p.id}`"> {{p.content}}</nuxt-link>
-       
-      </p>
     </v-flex>
   </v-layout>
 </template>
@@ -29,6 +17,6 @@ export default {
     prompts() {
       return this.$store.state.prompt.pending;
     }
-  }
+  },
 }
 </script>

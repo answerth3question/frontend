@@ -47,7 +47,7 @@ export default {
     },
     onSubmit() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('newPrompt/SUBMIT_PROMPT')
+        this.$store.dispatch('prompt/new/SUBMIT')
       } else {
         console.log('uh oh errors')
       }
@@ -55,12 +55,12 @@ export default {
   },
   computed: {
     content: {
-      get() { return this.$store.state.newPrompt.content },
-      set(val) { this.$store.commit('newPrompt/SET', ['content', val]) }
+      get() { return this.$store.state.prompt.new.content },
+      set(val) { this.$store.commit('prompt/new/SET', ['content', val]) }
     },
     success: {
-      get() { return this.$store.state.newPrompt.success },
-      set(val) { this.$store.commit('newPrompt/SET', ['success', val]) },
+      get() { return this.$store.state.prompt.new.success },
+      set(val) { this.$store.commit('prompt/new/SET', ['success', val]) },
     },
     rules() {
       return [

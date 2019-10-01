@@ -1,32 +1,34 @@
-import { handleActionError, indexById } from '@/util/index'
+import utils from '@/util/index'
 
 export const state = () => ({
   errors: [],
-  pending: {},
-  rejected: {},
-  approved: {},
   selectedId: '',
 });
 
 export const getters = {
-  selected(state) {
+  selected(state, getters) {
     const promptId = state.selectedId;
-    if (promptId) {
-      const ret = {
-        id: '',
-        date_created: '',
-        created_by: '',
-        content: '',
-        status: '',
-        posts: [],
-        reviews: [],
-      }
 
+    const ret = {
+      id: '',
+      date_created: '',
+      created_by: '',
+      content: '',
+      status: '',
+      posts: [],
+      reviews: [],
+    }
+
+    if (promptId) {
       let selected = null;
 
-      if (state.approved[promptId]) selected = state.approved[promptId];
-      else if (state.pending[promptId]) selected = state.pending[promptId];
-      else if (state.rejected[promptId]) selected = state.rejected[promptId];
+      if (getters['pending/byId'][promptId]) {
+        selected = getters['pending/byId'][promptId];
+      } else if (getters['approved/byId'][promptId]) {
+        selected = getters['approved/byId'][promptId];
+      }  else if (getters['rejected/byId'][promptId]) {
+        selected = getters['rejected/byId'][promptId];
+      }
       
       if (selected) {
         ret.id = selected.id;
@@ -40,7 +42,7 @@ export const getters = {
 
       return ret;
     }
-    return null;
+    return ret;
   }
 }
 
@@ -52,13 +54,12 @@ export const mutations = {
     }
   },
   SET_ALL(state, prompts) {
-    console.log(indexById(prompts.pending))
-    state.pending = indexById(prompts.pending);
-    state.rejected = indexById(prompts.rejected);
-    state.approved = indexById(prompts.approved);
+    state.pending.list = prompts.pending;
+    state.rejected.list = prompts.rejected;
+    state.approved.list = prompts.approved;
   },
   SET_APPROVED(state, approvedPrompts) {
-    state.approved = indexById(approvedPrompts);
+    state.approved.list = approvedPrompts;
   },
 };
 
@@ -74,7 +75,7 @@ export const actions = {
         ctx.commit('SET_APPROVED', await this.$axios.$get('/api/prompt/approved'));
       }
     } catch (error) {
-      handleActionError(ctx, error);
+       util.handleActionError(ctx, error);
     }
   },
 };
