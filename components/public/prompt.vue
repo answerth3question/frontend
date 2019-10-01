@@ -1,9 +1,19 @@
 <template>
-  <v-card flat class="transparent">
-    <v-card-text >
-      <nuxt-link :to="`/scrawl/${id}`">{{content}}</nuxt-link>
+  <v-card class="transparent">
+    <v-card-text>
+      <nuxt-link :to="`/scrawl/${id}`">
+        <!-- <blockquote class="blockquote"> -->
+          {{content}}
+        <!-- </blockquote> -->
+      </nuxt-link>
     </v-card-text>
   </v-card>
+  
+  <!-- <v-card flat class="transparent">
+    <v-card-text>
+      <nuxt-link :to="`/scrawl/${id}`">{{content}}</nuxt-link>
+    </v-card-text>
+  </v-card> -->
 </template>
 
 <script>

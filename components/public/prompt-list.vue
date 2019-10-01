@@ -1,8 +1,17 @@
 <template>
   <v-flex>
-    <template v-for="prompt in prompts">
+    <v-container grid-list-md>
+      <v-layout wrap justify-left>
+        <template v-for="prompt in prompts">
+          <v-flex :key="prompt.id" xs12 sm6 md4 d-flex>
+            <Prompt v-bind="prompt" />
+          </v-flex>
+        </template>
+      </v-layout>
+    </v-container>
+    <!-- <template v-for="prompt in prompts">
       <Prompt :key="prompt.id" v-bind="prompt" />
-    </template>
+    </template> -->
   </v-flex>
 </template>
 

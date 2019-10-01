@@ -19,12 +19,11 @@ export const actions = {
   async SUBMIT(ctx) {
     try {
       ctx.commit('SET', ['busy', true]);
-      await this.$axios.$post(`/api/prompt/create`, { content: ctx.state.content });
-      ctx.commit('SET', ['content', '']);
-      ctx.commit('SET', ['submitSuccess', true]);
+      await this.$axios.$post(`/api/prompt/create`, { content: ctx.state.content.trim() });
+      ctx.commit('SET', ['success', true]);
       ctx.dispatch('prompt/FETCH', null, { root: true });
     } catch (error) {
-      util.handleActionError(ctx, error)
+      util.handleActionError(ctx, error);
     } finally {
       ctx.commit('SET', ['busy', false]);
     }

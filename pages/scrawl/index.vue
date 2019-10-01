@@ -1,7 +1,9 @@
 <template>
   <v-flex>
     <v-layout>
-      <h3>Prompts</h3>
+      <v-flex>
+        <NewPrompt />
+      </v-flex>
     </v-layout>
     <v-layout>
       <PromptList />
@@ -11,9 +13,11 @@
 
 <script>
 import PromptList from '@/components/public/prompt-list'
+import NewPrompt from '@/components/contribute/new-prompt'
 export default {
   components: {
     PromptList,
+    NewPrompt,
   },
 }
 </script>

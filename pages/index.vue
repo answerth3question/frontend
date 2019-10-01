@@ -1,17 +1,28 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12>
-      This is the home page
-    </v-flex>
-  </v-layout>
+  <v-flex>
+    <v-layout align-center>
+      <v-flex shrink>
+        <h1>Welcome to the Stall</h1>
+      </v-flex>
+      <v-flex>
+        <blockquote class="blockquote">
+          Do you want to <nuxt-link to="/scrawl">scrawl</nuxt-link> on the Wall?
+        </blockquote>
+      </v-flex>
+    </v-layout>
+    <v-layout>
+      <PromptList />
+    </v-layout>
+  </v-flex>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import PromptList from '@/components/public/prompt-list'
 export default {
   auth: false,
-  layout(ctx) {
-    return ctx.app.$auth.loggedIn() ? 'authenticated' : '';
+  components: {
+    PromptList,
   },
   computed: {
     prompts() {

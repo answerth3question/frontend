@@ -20,7 +20,8 @@
             <v-list-tile to="/profile" active-class="haha">
               <v-list-tile-content>
                 <v-list-tile-title style="color: green;">
-                  {{user.role.name[0].toUpperCase() + user.role.name.slice(1)}}
+                  {{$store.getters['user/displayRole']}}
+                  <!-- {{user.role.name[0].toUpperCase() + user.role.name.slice(1)}} -->
                 </v-list-tile-title>
                 <v-list-tile-title class="body-2">
                   {{user.username}}
@@ -71,7 +72,6 @@ export default {
     }
   },
   computed: {
-    // ...mapState('user', ['id', 'email']),
     user() {
       return this.$store.state.user;
     },
@@ -90,12 +90,6 @@ export default {
             to: '/review',
             text: 'Review Posts',
           });
-        }
-        if (userPermissions.includes('contributer')) {
-          // result.push({
-          //   to: '/contribute',
-          //   text: 'Contribute',
-          // });
         }
       }
       return result;

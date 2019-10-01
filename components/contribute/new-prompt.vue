@@ -1,12 +1,12 @@
 <template>
-  <v-card flat class="blue-grey lighten-5">
+  <v-card flat class="transparent">
     <v-card-title class="title">
-      Submit a prompt
+      Contribute a Prompt :)
     </v-card-title>
     <v-card-text>
-      <v-snackbar v-model="success">
+      <v-snackbar fixed :timeout="0" bottom right color="success" v-model="success">
         Success!
-        <v-btn @click="success = false">Close</v-btn>
+        <v-btn flat @click="success = false">Close</v-btn>
       </v-snackbar>
       <v-form 
         @submit.prevent="onSubmit"
@@ -27,12 +27,13 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn flat color="secondary" @click="onReset">Reset</v-btn>
-      <v-btn :disabled="!valid" class="primary" @click="onSubmit">Submit</v-btn>
+      <v-btn :disabled="!valid" :loading="busy" class="primary" @click="onSubmit">Submit</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -41,26 +42,33 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('prompt/new', ['SET']),
     onReset() {
       this.content = '';
       this.$refs.form.resetValidation();
     },
-    onSubmit() {
+    async onSubmit() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('prompt/new/SUBMIT')
+        await this.$store.dispatch('prompt/new/SUBMIT')
+        this.onReset();
       } else {
         console.log('uh oh errors')
       }
     },
   },
   computed: {
+    ...mapState('prompt/new', {
+      busy: s => s.busy,
+      _content: 'content',
+      _success: s => s.success,
+    }),
     content: {
-      get() { return this.$store.state.prompt.new.content },
-      set(val) { this.$store.commit('prompt/new/SET', ['content', val]) }
+      get() { return this._content },
+      set(val) { this.SET(['content', val]) },
     },
     success: {
-      get() { return this.$store.state.prompt.new.success },
-      set(val) { this.$store.commit('prompt/new/SET', ['success', val]) },
+      get() { return this._success },
+      set(val) { this.SET(['success', val]) },
     },
     rules() {
       return [

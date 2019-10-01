@@ -10,6 +10,15 @@ export const state = () => ({
   prompts: [],
 });
 
+export const getters = {
+  displayRole(state) {
+    if (state.role.name.length) {
+      return state.role.name[0].toUpperCase() + state.role.name.slice(1).toLowerCase();
+    }
+    return '';
+  }
+}
+
 export const mutations = {
   SET_PROFILE(state, profile) {
     state.id = profile.id;

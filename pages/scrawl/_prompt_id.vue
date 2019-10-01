@@ -1,16 +1,12 @@
 <template>
   <v-flex>
-
     <blockquote class=" blockquote">
       {{prompt.content}}
     </blockquote>
-
     <v-layout>
       <!-- Display responses to this prompt in nuxt-child -->
       <nuxt-child></nuxt-child>
     </v-layout>
-
-    
   </v-flex>
 </template>
 
