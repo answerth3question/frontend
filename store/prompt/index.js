@@ -62,9 +62,9 @@ export const actions = {
       const perms = ctx.rootGetters['auth/permission'];
       if (perms && perms.includes('reviewer')) {
         await Promise.all([
-          ctx.dispatch('pending/FETCH', { withReviews: true }),
-          ctx.dispatch('rejected/FETCH', { withReviews: true }),
-          ctx.dispatch('approved/FETCH', { withReviews: true }),
+          ctx.dispatch('pending/FETCH', { includeReviews: true }),
+          ctx.dispatch('rejected/FETCH', { includeReviews: true }),
+          ctx.dispatch('approved/FETCH', { includeReviews: true }),
         ]);
       } else {
         await ctx.dispatch('approved/FETCH');

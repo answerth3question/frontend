@@ -1,6 +1,5 @@
 import helpers from '@/util/helpers'
 
-
 const createState = () => () => ({
   items: [],
   errors: [],
@@ -30,11 +29,12 @@ const createMutations = () => ({
 });
 
 const createActions = ({ promptEndpoint = '' }) => ({
-  async FETCH(ctx, { withReviews = false }) {
-    const { getters, state, commit, rootGetters } = ctx;
+  async FETCH(ctx, { includeReviews = false }) {
+    includeReviews = includeReviews ? 1 : 0;
+    const { getters, state, commit } = ctx;
     try {
       commit('SET', ['busy', true]);
-      const query = `?page=${getters.nextPage}&per_page=${state.pagination.per_page}&with_reviews=${withReviews}`;
+      const query = `?page=${getters.nextPage}&per_page=${state.pagination.per_page}&include_reviews=${includeReviews}`;
       const { items, ...pagination } = await this.$axios.$get(`/api/prompt/${promptEndpoint}` + query);
       commit('PUSH_ITEMS', items);
       commit('SET_PAGINATION', pagination);
@@ -42,7 +42,7 @@ const createActions = ({ promptEndpoint = '' }) => ({
     } catch (error) {
       helpers.handleActionError(ctx, error);
     } finally {
-      commit('SET', ['busy', true]);
+      commit('SET', ['busy', false]);
     }
   }
 });
