@@ -70,7 +70,9 @@ export const actions = {
       const perms = ctx.rootGetters['auth/permission'];
       if (perms && perms.includes('reviewer')) {
         const prompts = await this.$axios.$get('/api/prompt/all')
-        ctx.commit('SET_ALL', prompts);
+        // console.log('prompts ----------------------------', prompts)
+        // ctx.commit('SET_ALL', prompts);
+        
       } else {
         ctx.commit('SET_APPROVED', await this.$axios.$get('/api/prompt/approved'));
       }

@@ -19,8 +19,7 @@ export default {
   },
   data() {
     return {
-      classIndex: 2,
-      c: 'secondary lighten-5'
+      classIndex: 3,
     }
   },
   computed: {
@@ -28,7 +27,8 @@ export default {
       return [
         '',
         'secondary lighten-5',
-        'pink lighten-5'
+        'pink lighten-5',
+        '#123456'
       ][this.classIndex];
     }
   }

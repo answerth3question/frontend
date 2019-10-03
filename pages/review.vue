@@ -1,9 +1,14 @@
 <template>
-  <v-layout>
-    <v-flex>
+  <v-flex>
+    <v-layout>
+      <v-flex>
+        Review!
+      </v-flex>
+    </v-layout>
+    <v-layout>
       <nuxt-child></nuxt-child>
-    </v-flex>
-  </v-layout>
+    </v-layout>
+  </v-flex>
 </template>
 
 <script>

@@ -1,30 +1,24 @@
 <template>
   <v-flex>
-    <v-container grid-list-md>
-      <v-layout wrap justify-left>
+    <v-container grid-list-lg fluid px-0>
+      <v-layout wrap>
         <template v-for="prompt in prompts">
-          <v-flex :key="prompt.id" xs12 sm6 md4 d-flex>
-            <Prompt v-bind="prompt" />
+          <v-flex :key="prompt.id" xs12 sm6 md4>
+            <slot name="prompt" v-bind="prompt"></slot>
           </v-flex>
         </template>
       </v-layout>
     </v-container>
-    <!-- <template v-for="prompt in prompts">
-      <Prompt :key="prompt.id" v-bind="prompt" />
-    </template> -->
   </v-flex>
 </template>
 
 <script>
-import Prompt from '@/components/public/prompt'
 export default {
-  components: {
-    Prompt,
-  },
-  computed: {
-    prompts() {
-      return this.$store.getters['prompt/pending/byDate'];
+  props: {
+    prompts: {
+      type: Array,
+      default: () => [],
     }
-  }
+  },
 }
 </script>

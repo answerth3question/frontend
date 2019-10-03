@@ -18,11 +18,11 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
-      }
+      // {
+      //   rel: 'stylesheet',
+      //   href:
+      //     'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+      // }
     ]
   },
 
@@ -53,7 +53,6 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    // '@nuxtjs/auth',
   ],
   /*
   ** Axios module configuration
@@ -90,19 +89,4 @@ module.exports = {
   router: {
     middleware: 'auth',
   }
-  // auth: {
-  //   plugins: ['~/plugins/auth'],
-  //   strategies: {
-  //     google: {
-  //       client_id: process.env.GOOGLE_CLIENT_ID,
-  //       // response_type: 'code',
-  //       // access_token_endpoint: '/auth/code-exchange/google', // send POST to the express server
-  //       // access_type: 'offline',
-  //       // token_key: 'id_token',
-  //     }
-  //   },
-  //   redirect: {
-  //     callback: '/callback',
-  //   }
-  // },
 }

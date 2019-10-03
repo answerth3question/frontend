@@ -1,6 +1,5 @@
 export default function({ store, redirect }) {
-  const userPermission = store.getters['auth/claims'].permission;
-  if (!userPermission || !userPermission.includes('admin')) {
+  if (!store.getters['auth/permission'].includes('admin')) {
     redirect('/access-denied');
   }
 }

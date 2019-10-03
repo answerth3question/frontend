@@ -11,7 +11,7 @@
       </v-flex>
     </v-layout>
     <v-layout>
-      <PromptList />
+      <PromptList :prompts="$store.getters['prompt/approved/byDate']" />
     </v-layout>
   </v-flex>
 </template>
@@ -23,11 +23,6 @@ export default {
   auth: false,
   components: {
     PromptList,
-  },
-  computed: {
-    prompts() {
-      return this.$store.state.prompt.pending;
-    }
   },
 }
 </script>

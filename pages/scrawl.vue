@@ -2,8 +2,7 @@
   <v-flex>
     <v-layout>
       <v-flex>
-              Scrawl On The Wall
-
+        Scrawl On The Wall
       </v-flex>
       <v-flex>
         <v-layout justify-end>

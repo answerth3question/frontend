@@ -1,6 +1,9 @@
+
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
-import colors from 'vuetify/es5/util/colors'
+// import colors from 'vuetify/es5/util/colors'
+import 'material-design-icons/iconfont/material-icons.css'
+
 
 const themes = {
   one: {

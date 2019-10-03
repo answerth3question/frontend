@@ -15,8 +15,7 @@
         lazy-validation
       >
         <v-textarea
-          solo
-          flat
+          outline
           auto-grow
           :counter="maxLen"
           :rules="rules"

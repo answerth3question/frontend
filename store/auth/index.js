@@ -20,7 +20,7 @@ export const getters = {
         return claims.permission;
       }
     }
-    return null;
+    return [];
   },
 }
 
