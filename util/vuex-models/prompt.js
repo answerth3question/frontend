@@ -29,13 +29,13 @@ const createMutations = () => ({
   }
 });
 
-const createActions = ({ promptBpEndpoint = '' }) => ({
+const createActions = ({ promptEndpoint = '' }) => ({
   async FETCH(ctx, { withReviews = false }) {
     const { getters, state, commit, rootGetters } = ctx;
     try {
       commit('SET', ['busy', true]);
       const query = `?page=${getters.nextPage}&per_page=${state.pagination.per_page}&with_reviews=${withReviews}`;
-      const { items, ...pagination } = await this.$axios.$get(`/api/prompt/${promptBpEndpoint}` + query);
+      const { items, ...pagination } = await this.$axios.$get(`/api/prompt/${promptEndpoint}` + query);
       commit('PUSH_ITEMS', items);
       commit('SET_PAGINATION', pagination);
       commit('SET', ['success', true]);
