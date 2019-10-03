@@ -1,4 +1,4 @@
-import utils from '@/util/index'
+import helpers from '@/util/helpers'
 
 export const state = () => ({
   errors: [],
@@ -53,31 +53,24 @@ export const mutations = {
       state[key] = val;
     }
   },
-  SET_ALL(state, prompts) {
-    state.pending.list = prompts.pending;
-    state.rejected.list = prompts.rejected;
-    state.approved.list = prompts.approved;
-  },
-  SET_APPROVED(state, approvedPrompts) {
-    state.approved.list = approvedPrompts;
-  },
 };
 
 
 export const actions = {
-  async FETCH(ctx) {
+  async FETCH_AUTHORIZED(ctx) {
     try {
       const perms = ctx.rootGetters['auth/permission'];
       if (perms && perms.includes('reviewer')) {
-        const prompts = await this.$axios.$get('/api/prompt/all')
-        // console.log('prompts ----------------------------', prompts)
-        // ctx.commit('SET_ALL', prompts);
-        
+        await Promise.all([
+          ctx.dispatch('pending/FETCH', { withReviews: true }),
+          ctx.dispatch('rejected/FETCH', { withReviews: true }),
+          ctx.dispatch('approved/FETCH', { withReviews: true }),
+        ]);
       } else {
-        ctx.commit('SET_APPROVED', await this.$axios.$get('/api/prompt/approved'));
+        await ctx.dispatch('approved/FETCH');
       }
     } catch (error) {
-       util.handleActionError(ctx, error);
+       helpers.handleActionError(ctx, error);
     }
   },
 };

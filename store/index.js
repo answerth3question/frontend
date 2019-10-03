@@ -16,7 +16,7 @@ export const actions = {
       // we are in nuxtServerInit
       await Promise.all([
         vuexCtx.dispatch('post/FETCH'),
-        vuexCtx.dispatch('prompt/FETCH'),
+        vuexCtx.dispatch('prompt/FETCH_AUTHORIZED'),
       ]);
     } catch (error) {
       console.error(error.message)

@@ -1,4 +1,4 @@
-import util from '@/util/index'
+import helpers from '@/util/helpers'
 
 export const state = () => ({
   content: '',
@@ -23,7 +23,7 @@ export const actions = {
       ctx.commit('SET', ['success', true]);
       ctx.dispatch('prompt/FETCH', null, { root: true });
     } catch (error) {
-      util.handleActionError(ctx, error);
+      helpers.handleActionError(ctx, error);
     } finally {
       ctx.commit('SET', ['busy', false]);
     }
