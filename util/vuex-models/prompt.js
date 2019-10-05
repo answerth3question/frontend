@@ -1,15 +1,10 @@
 import helpers from '@/util/helpers'
 
 const createState = () => () => ({
-  items: [],
+  items: {},
   errors: [],
   busy: false,
   success: false,
-  pagination: {
-    page: 0,
-    per_page: 20,
-    has_next: null,
-  }
 });
 
 const createMutations = () => ({
@@ -18,47 +13,33 @@ const createMutations = () => ({
       state[key] = val;
     }
   },
-  PUSH_ITEMS(state, items) {
-    state.items.push(...items);
+  UPSERT_ITEMS(state, items) {
+    helpers.indexById(state.items, items);
   },
-  SET_PAGINATION(state, p) {
-    state.pagination.page = p.page;
-    state.pagination.per_page = p.per_page;
-    state.pagination.has_next = p.has_next;
-  }
 });
 
 const createActions = ({ promptEndpoint = '' }) => ({
-  async FETCH(ctx, { includeReviews = false }) {
-    includeReviews = includeReviews ? 1 : 0;
-    const { getters, state, commit } = ctx;
+  async FETCH(ctx, { limit = 20, sort_order = 'desc', cursor = '' } = {}) {
+    const query = helpers.queryStringify({ limit, sort_order, cursor });
     try {
-      commit('SET', ['busy', true]);
-      const query = `?page=${getters.nextPage}&per_page=${state.pagination.per_page}&include_reviews=${includeReviews}`;
-      const { items, ...pagination } = await this.$axios.$get(`/api/prompt/${promptEndpoint}` + query);
-      commit('PUSH_ITEMS', items);
-      commit('SET_PAGINATION', pagination);
-      commit('SET', ['success', true]);
+      ctx.commit('SET', ['busy', true]);
+      const items = await this.$axios.$get('/api/prompt/' + promptEndpoint + query);
+      ctx.commit('UPSERT_ITEMS', items);
+      ctx.commit('SET', ['success', true]);
     } catch (error) {
       helpers.handleActionError(ctx, error);
     } finally {
-      commit('SET', ['busy', false]);
+      ctx.commit('SET', ['busy', false]);
     }
   }
 });
 
 const createGetters = () => ({
-  nextPage(state) {
-    if (state.pagination.page === 0 || state.pagination.has_next) {
-      return state.pagination.page + 1;
-    }
-    return null;
-  },
-  itemsById(state) {
-    return helpers.indexById(state.items);
-  },
   itemsByDate(state) {
-    return helpers.sort(state.items).by('date_created')
+    const items = Object.values(state.items);
+    return helpers.sort(items)
+      .by('date_created')
+      .desc();
   }
 });
 

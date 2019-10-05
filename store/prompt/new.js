@@ -21,7 +21,7 @@ export const actions = {
       ctx.commit('SET', ['busy', true]);
       await this.$axios.$post(`/api/prompt/create`, { content: ctx.state.content.trim() });
       ctx.commit('SET', ['success', true]);
-      ctx.dispatch('prompt/FETCH', null, { root: true });
+      ctx.dispatch('prompt/pending/FETCH', { includeReviews: true }, { root: true });
     } catch (error) {
       helpers.handleActionError(ctx, error);
     } finally {

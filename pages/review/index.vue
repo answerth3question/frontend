@@ -6,7 +6,7 @@
       </v-flex>
     </v-layout>
     <v-layout>
-      <prompt-list :prompts="$store.getters['prompt/pending/byDate']">
+      <prompt-list :prompts="$store.getters['prompt/pending/itemsByDate']">
         <template v-slot:prompt="{ id, content, reviews }">
           <v-card>
             <v-card-title class="blockquote">{{content}}</v-card-title>
@@ -17,8 +17,17 @@
               <v-btn icon><v-icon color="accent">comment</v-icon></v-btn>
             </v-card-actions>
             <v-card-text>
-              <v-layout v-if="reviews.length">
-
+              <v-layout v-if="reviews.length" column>
+                <v-layout v-for="r in reviews" :key="r.id" px-1>
+                  <v-flex shrink>
+                    <v-icon small :color="r.is_approved ? 'blue' : ''">
+                      {{r.is_approved ? 'thumb_up' : 'thumb_down'}}
+                    </v-icon>
+                  </v-flex>
+                  <v-flex>
+                    {{r.comments}}
+                  </v-flex>
+                </v-layout>
               </v-layout>
               <v-layout v-else justify-center>
                 No reviews

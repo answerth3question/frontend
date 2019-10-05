@@ -7,19 +7,34 @@ export default {
       console.error('[util - handleActionError', error.message);
     }
   },
-  indexById(items) {
-    try {
-      return items.reduce((acc, item) => {
-        acc[item.id] = item;
-        return acc;
-      }, {});
-    } catch (error) {
-      console.error('[util - indexById', error.message);
-    }
-  },
   sort(items) {
     return {
-      by: key => items.slice().sort((a, b) => a[key] > b[key] ? 1 : -1),
+      by(key) {
+        return {
+          desc: () => items.slice().sort((a, b) => a[key] > b[key] ? 1 : -1),
+          asc: () => items.slice().sort((a, b) => a[key] > b[key] ? -1 : 1),
+        }
+      }
     }
-  }
+  },
+  queryStringify(obj) {
+    const qs = Object.entries(obj)
+      .filter(([key, val]) => !!val && val !== undefined)
+      .map(([key, val]) => {
+        const primitives = ['string', 'number', 'boolean'];
+        if (Array.isArray(val)) {
+          return key + '=' + val.join(',');
+        } else if (primitives.includes(typeof val)) {
+          return key + '=' + val;
+        } else {
+          throw new Error('[helpers error] Values in object passed to queryStringify can only be stirng')
+        }
+      })
+      .join('&');
+    return '?' + qs;
+  },
+  indexById(accum = {}, items = []) {
+    items.forEach(item => accum[item.id] = item);
+  },
+  
 }
