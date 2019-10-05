@@ -1,21 +1,10 @@
 <template>
   <v-card>
-    <v-card-title>
-      <slot name="status"></slot>
-      <v-spacer></v-spacer>
-      {{displayDate}}
+    <v-card-title class="blockquote">
+      <slot name="content"></slot>
     </v-card-title>
-    <v-card-text>
-      <blockquote class="blockquote">
-        <v-slot name="content"></v-slot>
-      </blockquote>
-      <v-layout>
-        <slot name="responses"></slot>
-      </v-layout>
-    </v-card-text>
-    <v-card-actions v-if="isReviewer">
-
-    </v-card-actions>
+    <slot v-if="isReviewer" name="reviewer"></slot>
+    <slot name="posts"></slot>
   </v-card>
 </template>
 
