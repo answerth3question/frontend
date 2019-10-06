@@ -7,7 +7,7 @@ export const state = () => ({
 
 export const getters = {
   selected(state, getters) {
-    const promptId = state.selectedId;
+    const id = state.selectedId;
 
     const ret = {
       id: '',
@@ -19,15 +19,15 @@ export const getters = {
       reviews: [],
     }
 
-    if (promptId) {
+    if (id) {
       let selected = null;
 
-      if (getters['pending/byId'][promptId]) {
-        selected = getters['pending/byId'][promptId];
-      } else if (getters['approved/byId'][promptId]) {
-        selected = getters['approved/byId'][promptId];
-      }  else if (getters['rejected/byId'][promptId]) {
-        selected = getters['rejected/byId'][promptId];
+      if (state.approved.items[id]) {
+        selected = state.approved.items[id];
+      } else if (state.pending.items[id]) {
+        selected = state.pending.items[id];
+      } else if (state.rejected.items[id]) {
+        selected = state.rejected.items[id];
       }
       
       if (selected) {

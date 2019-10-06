@@ -1,28 +1,32 @@
 <template>
   <v-flex>
-    <v-layout align-center>
-      <v-flex shrink>
-        <h1>Welcome to the Stall</h1>
-      </v-flex>
-      <v-flex>
-        <blockquote class="blockquote">
-          Do you want to <nuxt-link to="/scrawl">scrawl</nuxt-link> on the Wall?
-        </blockquote>
-      </v-flex>
-    </v-layout>
-    <v-layout>
-      <PromptList :prompts="$store.getters['prompt/approved/byDate']" />
-    </v-layout>
+    <nuxt-child></nuxt-child>
   </v-flex>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import PromptList from '@/components/public/prompt-list'
+
 export default {
-  auth: false,
-  components: {
-    PromptList,
+  methods: {
+    selectPrompt(id) {
+      this.$store.commit('prompt/SET', ['selectedId', id]);
+    }
   },
+  watch: {
+    '$route': {
+      immediate: true,
+      deep: true,
+      handler(newVal, oldVal) {
+        const np = newVal.params;
+        const op = oldVal ? oldVal.params : {};
+
+        if (np.prompt_id && !op.prompt_id) {
+          this.selectPrompt(np.prompt_id);
+        } else if (!np.prompt_id && op.prompt_id) {
+          this.selectPrompt('');
+        }
+      }
+    }
+  }
 }
 </script>
