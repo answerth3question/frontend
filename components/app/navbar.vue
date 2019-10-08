@@ -1,5 +1,9 @@
 <template>
-  <v-toolbar app flat class="teal lighten-5">
+  <v-toolbar
+    app
+    flat
+    clipped-left
+  >
     <v-toolbar-title >
       <nuxt-link class="headline" style="color: black;" exact to="/">StallWall</nuxt-link>
     </v-toolbar-title>
@@ -21,7 +25,6 @@
               <v-list-tile-content>
                 <v-list-tile-title style="color: green;">
                   {{$store.getters['user/displayRole']}}
-                  <!-- {{user.role.name[0].toUpperCase() + user.role.name.slice(1)}} -->
                 </v-list-tile-title>
                 <v-list-tile-title class="body-2">
                   {{user.username}}

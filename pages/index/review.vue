@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  layout: 'authenticated',
+  layout: 'review',
   middleware: 'is-reviewer'
 }
 </script>

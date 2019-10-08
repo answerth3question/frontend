@@ -7,6 +7,12 @@
 <script>
 
 export default {
+  layout(ctx) {
+    // kinda a hack but it looks like layouts only work on top level /pages files
+    if (ctx.route.path.startsWith('/review')) {
+      return 'review'
+    }
+  },
   methods: {
     checkParams(to, from, paramKey, callbackSetter) {
       const toParams = to.params;

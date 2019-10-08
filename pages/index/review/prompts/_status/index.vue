@@ -1,10 +1,9 @@
 <template>
   <v-flex>
-    <h1>Review {{$route.params.status}} prompts</h1>
+    <h3>Review Prompts</h3>
     <template v-for="prompt in prompts" >
       <v-layout :key="prompt.id">
         <v-flex>
-          <!-- <ReviewerPrompt  v-bind="prompt" /> -->
           <nuxt-link :to="`/review/prompts/${status}/${prompt.id}`">{{prompt.content}}</nuxt-link>
         </v-flex>
       </v-layout>
