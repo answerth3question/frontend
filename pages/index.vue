@@ -8,23 +8,35 @@
 
 export default {
   methods: {
-    selectPrompt(id) {
-      this.$store.commit('prompt/SET', ['selectedId', id]);
-    }
+    checkParams(to, from, paramKey, callbackSetter) {
+      const toParams = to.params;
+      const fromParams = from ? from.params : {};
+      if (
+        toParams[paramKey] !== undefined &&
+        toParams[paramKey] !== fromParams[paramKey]
+      ) {
+        callbackSetter(toParams[paramKey]);
+      } else if (
+        !toParams[paramKey] && 
+        toParams[paramKey] !== 0 && 
+        fromParams[paramKey]
+      ) {
+        callbackSetter();
+      }
+    },
   },
   watch: {
     '$route': {
       immediate: true,
       deep: true,
-      handler(newVal, oldVal) {
-        const np = newVal.params;
-        const op = oldVal ? oldVal.params : {};
-
-        if (np.prompt_id && !op.prompt_id) {
-          this.selectPrompt(np.prompt_id);
-        } else if (!np.prompt_id && op.prompt_id) {
-          this.selectPrompt('');
+      handler(to, from) {
+        const commit = this.$store.commit;
+        
+        const checkers = {
+          prompt_id: (val = '') => commit('prompt/SET', ['selectedId', val]),
         }
+
+        Object.keys(checkers).forEach(key => this.checkParams(to, from, key, checkers[key]));
       }
     }
   }
