@@ -1,10 +1,10 @@
 <template>
   <v-flex>
-    <v-layout>
-      <nuxt-link to="/review/prompts/pending">Pending</nuxt-link>
-      <nuxt-link to="/review/prompts/approved">Approved</nuxt-link>
-      <nuxt-link to="/review/prompts/rejected">Rejected</nuxt-link>
-    </v-layout>
+    <v-tabs color="transparent">
+      <v-tab nuxt to="/review/prompts/pending">Pending</v-tab>
+      <v-tab nuxt to="/review/prompts/approved">Approved</v-tab>
+      <v-tab nuxt to="/review/prompts/rejected">Rejected</v-tab>
+    </v-tabs>
     <nuxt-child></nuxt-child>
   </v-flex>
 </template>

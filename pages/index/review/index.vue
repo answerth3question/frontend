@@ -1,6 +1,8 @@
 <template>
   <v-flex>
-    <nuxt-link to="/review/prompts">Prompts</nuxt-link>
-    <nuxt-link to="/review/posts">Posts</nuxt-link>
+    <v-tabs color="transparent">
+      <v-tab to="/review/prompts/pending">Prompts</v-tab>
+      <v-tab to="/review/posts">Posts</v-tab>
+    </v-tabs>
   </v-flex>
 </template>
