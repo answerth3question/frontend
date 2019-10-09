@@ -2,17 +2,16 @@
   <v-toolbar
     app
     flat
+    class="pink lighten-5"
     clipped-left
   >
     <v-toolbar-title >
-      <nuxt-link class="headline" style="color: black;" exact to="/">StallWall</nuxt-link>
+      <nuxt-link class="headline black--text" exact to="/">StallWall</nuxt-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
 
     <template v-if="$auth.loggedIn()">
-      <v-btn outline to="/scrawl">
-        <v-icon left>add</v-icon>Add Something
-      </v-btn>
+      <v-btn icon to="/scrawl"><v-icon>add</v-icon></v-btn>
       <v-menu v-model="showMenu" offset-y max-width="250" min-width="250">
         <template v-slot:activator="{ on }">
           <v-btn icon  v-on="on">
@@ -91,7 +90,7 @@ export default {
         if (userPermissions.includes('reviewer')) {
           result.push({
             to: '/review',
-            text: 'Review Posts',
+            text: 'Review',
           });
         }
       }

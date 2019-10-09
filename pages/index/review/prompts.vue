@@ -12,13 +12,10 @@
 <script>
 export default {
   beforeRouteEnter(to, from, next) {
-    console.log('hi')
     if (!to.params.status) {
-      console.log('hello')
       next('/review/prompts/pending')
     }
-    console.log('goodby')
     next()
-  }
+  },
 }
 </script>

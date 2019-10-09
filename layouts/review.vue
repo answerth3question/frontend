@@ -24,8 +24,11 @@ export default {
     return {
       routes: [
         {
+          text: 'Review',
+          to: '/review',
+        },
+        {
           text: 'Prompts',
-          to: '/review/prompts',
           children: [
             {
               text: 'Pending',
