@@ -14,11 +14,14 @@
         <v-list-group
           v-if="route.children"
           :key="route.text"
+          class="grey--text text--lighten-1"
+          active-class="white--text"
           value="true"
         >
           <template v-slot:activator>
-            <v-list-tile :key="route.text">
-              <v-list-tile-title class="font-weight-thin grey--text text--lighten-1">
+            <v-list-tile :key="route.to" :to="route.to"  active-class="white--text">
+              <!-- <v-list-tile-title class="font-weight-thin grey--text text--lighten-1"> -->
+              <v-list-tile-title>
                 {{route.text}}
               </v-list-tile-title>
             </v-list-tile>

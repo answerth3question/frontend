@@ -29,6 +29,7 @@ export default {
         },
         {
           text: 'Prompts',
+          to: '/review/prompts',
           children: [
             {
               text: 'Pending',
@@ -41,6 +42,24 @@ export default {
             {
               text: 'Rejected',
               to: '/review/prompts/rejected',
+            },
+          ]
+        },
+        {
+          text: 'Posts',
+          to: '/review/posts',
+          children: [
+            {
+              text: 'Pending',
+              to: '/review/posts/pending',
+            },
+            {
+              text: 'Approved',
+              to: '/review/posts/approved',
+            },
+            {
+              text: 'Rejected',
+              to: '/review/posts/rejected',
             },
           ]
         }
