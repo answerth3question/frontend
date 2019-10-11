@@ -1,21 +1,24 @@
 <template>
-  <pre>
-    {{prompt}}
-  </pre>
+  <v-flex>
+    <v-card>
+      <v-card-title class="title">
+        {{prompt.content}}
+        <v-spacer></v-spacer>
+        <span class="caption">
+          {{prompt.displayDate}}
+        </span>
+      </v-card-title>
+      <v-card-text>
+        <v-layout v-for="review in prompt.reviews" :key="review.id">
+          
+        </v-layout>
+      </v-card-text>
+    </v-card>
+  </v-flex>
 </template>
 
 <script>
 export default {
-  // beforeRouteEnter(to, from, next) {
-  //   next(vm => {
-  //     console.log(to)
-  //     vm.$store.commit('prompt/SET', ['selectedId', to.params.prompt_id]);
-  //   });
-  // },
-  // beforeRouteLeave(to, from, next) {
-  //   this.$store.commit('prompt/SET', ['selectedId', null]);
-  //   next()
-  // },
   computed: {
     prompt() {
       return this.$store.getters['prompt/selected'];

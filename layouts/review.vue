@@ -4,9 +4,6 @@
     <AppNavdrawer :routes="routes" />
     <v-content>
       <v-container fluid full-height>
-        <!-- <v-layout>
-          <v-btn @click="toggle">toggle</v-btn>
-        </v-layout> -->
         <v-layout justify-center>
           <nuxt />
         </v-layout>
@@ -23,11 +20,6 @@ export default {
     AppNavbar,
     AppNavdrawer
   },
-  methods: {
-    // toggle() {
-    //   this.routes[1].showChildren = !this.routes[1].showChildren
-    // }
-  },
   data() {
     return {
       routes: [
@@ -38,7 +30,6 @@ export default {
         {
           text: 'Prompts',
           to: '/review/prompts',
-          showChildren: true,
           children: [
             {
               text: 'Pending',
@@ -57,7 +48,6 @@ export default {
         {
           text: 'Posts',
           to: '/review/posts',
-          showChildren: false,
           children: [
             {
               text: 'Pending',

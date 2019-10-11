@@ -12,6 +12,7 @@ export const getters = {
     const ret = {
       id: '',
       date_created: '',
+      displayDate: '',
       created_by: '',
       content: '',
       status: '',
@@ -33,6 +34,7 @@ export const getters = {
       if (selected) {
         ret.id = selected.id;
         ret.date_created = selected.date_created;
+        ret.displayDate = new Date(selected.date_created).toLocaleString();
         ret.created_by = selected.created_by;
         ret.content = selected.content;
         ret.status = selected.status;
